@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# word_hurdle_puzzle
-=======
+
 # word-hurdle-puzzle
 A wordle game clone.
 
@@ -14,4 +12,3 @@ packages:
 	  -english_words
 	  -provider
  
->>>>>>> 1ee521ce9a58f6cd6772297d829d23733f01f05f
