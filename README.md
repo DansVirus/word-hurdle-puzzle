@@ -13,9 +13,12 @@ Wordle is a popular online word puzzle game where players try to guess a five-le
 Each guess provides feedback, with colored tiles indicating correct letters and their positions. 
 The game blends strategy and vocabulary skills, offering a fun, daily mental challenge that’s both addictive and educational.
 
-v.0.0.1
+v0.0.1
 
 packages:
 	  -english_words
 	  -provider
+v0.0.2   
  
+packages: 
+          -audioplayers
