@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:world_hurdle_puzzle/helper_functions.dart';
 import 'package:world_hurdle_puzzle/keyboard_view.dart';
 import 'package:world_hurdle_puzzle/providers/hurdle_provider.dart';
+import 'package:world_hurdle_puzzle/sound_player.dart';
 import 'package:world_hurdle_puzzle/wordle_view.dart';
 
 class WordHurdlePage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
           children: [
             Expanded(
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.70,
+                width: MediaQuery.of(context).size.width * 0.90,
                 child: Consumer<HurdleProvider>(
                   builder: (context, provider, child) => GridView.builder(
                     gridDelegate:
@@ -70,40 +71,7 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (!provider.isAValidWord) {
-                          showMsg(context, 'Not a word in dictionary');
-                          return;
-                        }
-                        if (provider.checkForAnswer) {
-                          provider.checkAnswer();
-                        }
-                        if (provider.wins) {
-                          showResult(
-                            context: context,
-                            title: 'You Win!!!',
-                            body: 'The word was ${provider.targetWord}',
-                            onPlayAgain: () {
-                              Navigator.pop(context);
-                              provider.reset();
-                            },
-                            onCancel: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        } else if (provider.noAttemptsLeft) {
-                          showResult(
-                            context: context,
-                            title: 'Sorry, you lost!',
-                            body: 'The word was ${provider.targetWord}',
-                            onPlayAgain: () {
-                              Navigator.pop(context);
-                              provider.reset();
-                            },
-                            onCancel: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        }
+                        _handleInput(provider);
                       },
                       child: const Text('SUBMIT'),
                     ),
@@ -115,5 +83,46 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
         ),
       ),
     );
+  }
+
+  _handleInput(HurdleProvider provider) {
+    SoundPlayer youWin = SoundPlayer();
+    SoundPlayer youLost = SoundPlayer();
+    if (!provider.isAValidWord) {
+      showMsg(context, 'Not a word in dictionary');
+      return;
+    }
+    if (provider.checkForAnswer) {
+      provider.checkAnswer();
+    }
+    if (provider.wins) {
+      youWin.playSound('sounds/you_win.wav');
+      showResult(
+        context: context,
+        title: 'You Win!!!',
+        body: 'The word was ${provider.targetWord}',
+        onPlayAgain: () {
+          Navigator.pop(context);
+          provider.reset();
+        },
+        onCancel: () {
+          Navigator.pop(context);
+        },
+      );
+    } else if (provider.noAttemptsLeft) {
+      youLost.playSound('sounds/you_lost.mp3');
+      showResult(
+        context: context,
+        title: 'Sorry, you lost!',
+        body: 'The word was ${provider.targetWord}',
+        onPlayAgain: () {
+          Navigator.pop(context);
+          provider.reset();
+        },
+        onCancel: () {
+          Navigator.pop(context);
+        },
+      );
+    }
   }
 }
