@@ -3,6 +3,9 @@
 A wordle game clone.
 
 Photo:
+
+
+
 ![Wordle](https://github.com/user-attachments/assets/ef1e7a6d-522d-4ebe-b317-6fae7afb73c5)
 
 
