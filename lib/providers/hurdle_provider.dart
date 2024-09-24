@@ -23,7 +23,7 @@ class HurdleProvider extends ChangeNotifier {
 
   bool get noAttemptsLeft => attempts == totalAttempts;
 
-  /// with this function(initial) we making a list of words with 5 characters from the english_words package.
+  /// In line 28 we create a list of words with 5 characters from the english_words package.
   init() {
     totalWorlds = words.all.where((element) => element.length == 5).toList();
     generateBoard();
@@ -37,7 +37,7 @@ class HurdleProvider extends ChangeNotifier {
   ///a word from totalWords is generated for the game.
   generateRandomWord() {
     targetWord = totalWorlds[random.nextInt(totalWorlds.length)].toUpperCase();
-    print(targetWord);
+    //print(targetWord);
     }
 
 
@@ -47,7 +47,7 @@ class HurdleProvider extends ChangeNotifier {
     rowInputs.add(letter);
     hurdleBoard[index] = Wordle(letter: letter);
     index++;
-    print(rowInputs);
+    //print(rowInputs);
     notifyListeners();
     }
   }
